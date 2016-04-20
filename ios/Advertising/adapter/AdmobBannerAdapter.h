@@ -7,8 +7,8 @@
 //
 
 #import "AbstractAdAdapter.h"
-#import "GADBannerView.h"
-#import "GADRequest.h"
+#import <GoogleMobileAds/GADBannerView.h>
+#import <GoogleMobileAds/GADRequest.h>
 
 @class GADBannerView;
 

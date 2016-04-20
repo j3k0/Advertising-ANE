@@ -92,7 +92,7 @@
             NSMutableArray *testDevices=[NSMutableArray array];
 
             // Enable test ads on simulators.
-            [testDevices addObject:GAD_SIMULATOR_ID];
+            // [testDevices addObject:GAD_SIMULATOR_ID];
             [testDevices addObject:deviceID];
             
             // set the test devices

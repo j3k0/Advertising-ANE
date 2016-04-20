@@ -7,9 +7,7 @@
 //
 
 #import "AbstractAdAdapter.h"
-#import <MillennialMedia/MMSDK.h>
-#import <MillennialMedia/MMInterstitial.h>
-#import <MillennialMedia/MMRequest.h>
+#import <MMAdSDK/MMAdSDK.h>
 
 @interface MMInterstitialAdapter : AbstractAdAdapter {
     

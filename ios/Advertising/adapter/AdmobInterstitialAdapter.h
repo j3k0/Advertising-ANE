@@ -7,7 +7,7 @@
 //
 
 #import "AbstractAdAdapter.h"
-#import "GADInterstitial.h"
+#import <GoogleMobileAds/GADInterstitial.h>
 
 @interface AdmobInterstitialAdapter : AbstractAdAdapter <GADInterstitialDelegate>{
     

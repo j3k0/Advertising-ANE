@@ -7,9 +7,9 @@
 //
 
 #import "AbstractAdAdapter.h"
-#import <MillennialMedia/MMSDK.h>
-#import <MillennialMedia/MMAdView.h>
-#import <MillennialMedia/MMRequest.h>
+#import <MMAdSDK/MMSDK.h>
+#import <MMAdSDK/MMAdView.h>
+#import <MMAdSDK/MMRequest.h>
 
 @interface MMBannerAdapter : AbstractAdAdapter {
     

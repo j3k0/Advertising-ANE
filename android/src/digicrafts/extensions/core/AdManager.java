@@ -7,9 +7,12 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import com.adobe.fre.FREContext;
-import com.inmobi.commons.InMobi;
-import com.inmobi.monetization.IMBanner;
-import digicrafts.extensions.adapter.*;
+//import com.inmobi.commons.InMobi;
+//import com.inmobi.monetization.IMBanner;
+import digicrafts.extensions.adapter.AdmobBannerAdapter;
+import digicrafts.extensions.adapter.AdmobInterstitialAdapter;
+import digicrafts.extensions.adapter.BackFillBannerAdapter;
+import digicrafts.extensions.adapter.BackFillIinterstitialAdapter;
 import digicrafts.extensions.data.AdAdapterNetworkType;
 import digicrafts.extensions.data.AdAdapterSize;
 import digicrafts.extensions.utils.ViewUtils;
@@ -302,7 +305,7 @@ public class AdManager {
 
                 adapter = new AdmobInterstitialAdapter(_activity, adUnitId, settings);
 
-            } else if(network.equals(AdAdapterNetworkType.AMAZON)) {
+            } /*else if(network.equals(AdAdapterNetworkType.AMAZON)) {
 
                 adapter = new AmazonInterstitialAdapter(_activity, adUnitId, settings);
 
@@ -314,7 +317,7 @@ public class AdManager {
 
                 adapter = new InMobiInterstitialAdapter(_activity, adUnitId, settings);
 
-            } else if(network.equals(AdAdapterNetworkType.BACKFILL)) {
+            } */else if(network.equals(AdAdapterNetworkType.BACKFILL)) {
 
                 adapter = new BackFillIinterstitialAdapter(_activity, adUnitId, settings);
 
@@ -324,7 +327,7 @@ public class AdManager {
 
                 adapter = new AdmobBannerAdapter(_activity, size, adUnitId, settings);
 
-            } else if(network.equals(AdAdapterNetworkType.AMAZON)) {
+            } /*else if(network.equals(AdAdapterNetworkType.AMAZON)) {
 
                 adapter = new AmazonBannerAdapter(_activity, size, adUnitId, settings);
 
@@ -336,7 +339,7 @@ public class AdManager {
 
                 adapter = new InMobiBannerAdapter(_activity, size, adUnitId, settings);
 
-            } else if(network.equals(AdAdapterNetworkType.BACKFILL)) {
+            } */else if(network.equals(AdAdapterNetworkType.BACKFILL)) {
 
                 adapter = new BackFillBannerAdapter(_activity, size, adUnitId, settings);
 

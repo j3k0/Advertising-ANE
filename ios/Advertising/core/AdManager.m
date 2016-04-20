@@ -7,16 +7,16 @@
 //
 
 #import "AdManager.h"
-#import "IAdBannerAdapter.h"
-#import "IAdInterstitialAdapter.h"
+//#import "IAdBannerAdapter.h"
+//#import "IAdInterstitialAdapter.h"
 #import "AdmobBannerAdapter.h"
 #import "AdmobInterstitialAdapter.h"
-#import "AmazonBannerAdapter.h"
-#import "AmazonInterstitialAdapter.h"
-#import "InMobiBannerAdapter.h"
-#import "InMobiInterstitialAdapter.h"
-#import "MMBannerAdapter.h"
-#import "MMInterstitialAdapter.h"
+//#import "AmazonBannerAdapter.h"
+//#import "AmazonInterstitialAdapter.h"
+//#import "InMobiBannerAdapter.h"
+//#import "InMobiInterstitialAdapter.h"
+//#import "MMBannerAdapter.h"
+//#import "MMInterstitialAdapter.h"
 #import "BackFillBannerAdapter.h"
 #import "BackFillInterstitialAdapter.h"
 
@@ -223,7 +223,7 @@
            
             adapter = [[AdmobInterstitialAdapter alloc] initWithAdUnitId:adUnitId settings:settings];
             
-        } else if([network isEqualToString:kNetworkTypeAMAZON]){
+        } /*else if([network isEqualToString:kNetworkTypeAMAZON]){
 
             adapter = [[AmazonInterstitialAdapter alloc] initWithAdUnitId:adUnitId settings:settings];
             
@@ -239,7 +239,7 @@
             
             adapter = [[InMobiInterstitialAdapter alloc] initWithAdUnitId:adUnitId settings:settings];
             
-        } else if([network isEqualToString:kNetworkTypeBACKFILL]){
+        } */else if([network isEqualToString:kNetworkTypeBACKFILL]){
             
             adapter = [[BackFillInterstitialAdapter alloc] initWithLink:adUnitId settings:settings];
             
@@ -249,7 +249,7 @@
             
             adapter = [[AdmobBannerAdapter alloc] initWithSize:size adUnitId:adUnitId settings:settings];
             
-        } else if([network isEqualToString:kNetworkTypeAMAZON]){
+        } /*else if([network isEqualToString:kNetworkTypeAMAZON]){
             
             adapter = [[AmazonBannerAdapter alloc] initWithSize:size adUnitId:adUnitId settings:settings];
             
@@ -265,7 +265,7 @@
             
             adapter = [[InMobiBannerAdapter alloc] initWithSize:size adUnitId:adUnitId settings:settings];
             
-        } else if([network isEqualToString:kNetworkTypeBACKFILL]){
+        } */else if([network isEqualToString:kNetworkTypeBACKFILL]){
             
             adapter = [[BackFillBannerAdapter alloc] initWithSize:size link:adUnitId settings:settings];
         }
