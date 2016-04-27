@@ -34,7 +34,7 @@
         <delete dir="../android/temp"/>
         <mkdir dir="../android/temp/classes"/>
 
-        <javac srcdir="../android/src" destdir="../android/temp/classes" includeantruntime="false">
+        <javac target="1.7" source="1.7" srcdir="../android/src" destdir="../android/temp/classes" includeantruntime="false">
             <classpath>
                 <!--<pathelement path="${sdk.dir}/*"/>-->
                 <fileset dir="${sdk.dir}">
@@ -42,13 +42,13 @@
                 </fileset>
                 <pathelement location="${android.sdk}/android.jar"/>
                 <pathelement location="${flex.sdk}/lib/android/FlashRuntimeExtensions.jar"/>
-                <pathelement location="${googleplay.sdk}/libs/google-play-services.jar"/>
+                <!-- pathelement location="${googleplay.sdk}/libs/google-play-services.jar"/ -->
             </classpath>
         </javac>
 
         <mkdir dir="../temp/android/"/>
 
-        <copy todir="../temp/android/res/">
+        <copy todir="../temp/android/advertising-res/">
             <fileset dir="../android/res"/>
         </copy>
 
@@ -57,13 +57,13 @@
         </copy>
 
         <!-- google play -->
-        <copy todir="../temp/android/res/">
-            <fileset dir="${googleplay.sdk}/res"/>
+        <copy todir="../temp/android/google-play-services-res/">
+            <fileset dir="../android/libs/google-play-services/res"/>
         </copy>
 
-        <copy todir="../temp/android/">
+        <!-- copy todir="../temp/android/">
             <fileset dir="${googleplay.sdk}/libs"/>
-        </copy>
+        </copy -->
 
         <jar basedir="../android/temp/classes" destfile="../temp/android/lib${name}.jar">
             <!--<zipgroupfileset dir="${googleplay.sdk}/libs" includes="*.jar" excludes="*.properties" />-->

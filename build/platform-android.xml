@@ -9,7 +9,7 @@
     <packagedResources>
         <packagedResource>
             <packageName>com.google.android.gms</packageName>
-            <folderName>res</folderName>
+            <folderName>google-play-services-res</folderName>
         </packagedResource>
     </packagedResources>
 </platform>
