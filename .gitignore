@@ -17,3 +17,9 @@ media/
 doc/
 product/
 vendor/
+
+bin/
+ios/Advertising.xcodeproj/project.xcworkspace/xcshareddata/Advertising.xcscmblueprint
+ios/Advertising/GoogleMobileAdsSdkiOS/
+ios/Advertising/googlemobileadssdkios.zip
+temp/
