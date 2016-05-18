@@ -60,6 +60,7 @@
         <copy todir="../temp/android/google-play-services-res/">
             <fileset dir="../android/libs/google-play-services/res"/>
         </copy>
+        <copy todir="../temp/android/" file="../android/libs/google-play-services/google-play-services.jar" overwrite="true"/>
 
         <!-- copy todir="../temp/android/">
             <fileset dir="${googleplay.sdk}/libs"/>
