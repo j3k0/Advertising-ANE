@@ -12,6 +12,8 @@
 @interface AdmobInterstitialAdapter : AbstractAdAdapter <GADInterstitialDelegate>{
     
     GADInterstitial* adView_;    
+    UIViewController* viewController_;
+    UIViewController* oldViewController_;
 }
 @property (nonatomic, retain) GADInterstitial* adView;
 

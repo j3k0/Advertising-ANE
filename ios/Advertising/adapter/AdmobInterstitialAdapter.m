@@ -15,6 +15,8 @@
     
     adView_.delegate=nil;
     self.adView=nil;
+
+    viewController_ = nil;
     
     [super dealloc];
 }
@@ -45,7 +47,7 @@
 - (void) showInPosition:(NSString*) position offsetX: (int) x offsetY:(int) y {
     if(adView_){
         if(adView_.isReady){
-            [adView_ presentFromRootViewController:rootController_];
+            [self presentAd];
         } else {
             isNeedToShow_=YES;
         }
@@ -107,13 +109,42 @@
     return kNetworkTypeADMOB;
 }
 
+- (void)presentAd
+{
+    if (!viewController_) {
+        viewController_ = [[UIViewController alloc] initWithNibName:nil bundle:nil];
+        CGRect  viewRect = [[UIScreen mainScreen] bounds];
+        /*CGRectMake(0, 0,
+            [[UIScreen mainScreen] applicationFrame].size.width,
+            [[UIScreen mainScreen] applicationFrame].size.height);*/
+        // CGRectMake(0, 0, 1136/2, 640/2);
+        UIView* myView = [[UIView alloc] initWithFrame:viewRect];
+        viewController_.view = myView;
+        viewController_.modalPresentationStyle = UIModalPresentationOverFullScreen;
+        viewController_.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+    }
+    // TODO: Create an inner view.
+    //       With a view controller that checks the orientation.
+    //       Present the ad inside this view controller.
+    // [rootController_ presentViewController:viewController_ animated:NO completion:nil];
+    oldViewController_ = rootController_.presentedViewController;
+    if (rootController_.presentedViewController != nil) {
+        NSLog(@"Presented view controller saved.");
+    }
+    [rootController_ presentViewController:viewController_ animated:NO completion:^{
+        [adView_ presentFromRootViewController:viewController_];
+    }];
+    
+    // [adView_ presentFromRootViewController:rootController_];
+}
+
 #pragma mark - GADBannerViewDelegate
 
 - (void)interstitialDidReceiveAd:(GADInterstitial *)interstitial
 {
     if(isNeedToShow_){
         isNeedToShow_=NO;
-        [adView_ presentFromRootViewController:rootController_];
+        [self presentAd];
     }
     [delegate_ adAdapterDidReceiveAd:self];
 }
@@ -133,6 +164,13 @@
 - (void)interstitialDidDismissScreen:(GADInterstitial *)interstitial
 {
     [delegate_ adAdapterDidDismiss:self];
+    // TODO: Delete the view controller.
+    // [viewController_ presentViewController:rootController_ animated:NO completion:nil];
+    [rootController_ dismissViewControllerAnimated:NO completion:nil];
+    if (oldViewController_ != nil) {
+        [rootController_ presentViewController:oldViewController_ animated:NO];
+    }
+    rootController_.view.translatesAutoresizingMaskIntoConstraints = YES;
 }
 - (void)interstitialWillLeaveApplication:(GADInterstitial *)interstitial
 {
