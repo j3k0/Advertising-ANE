@@ -23,3 +23,5 @@ ios/Advertising.xcodeproj/project.xcworkspace/xcshareddata/Advertising.xcscmblue
 ios/Advertising/GoogleMobileAdsSdkiOS/
 ios/Advertising/googlemobileadssdkios.zip
 temp/
+ios/Advertising/mm-ad-sdk-ios-*
+ios/Advertising/MillennialMedia.framework/
