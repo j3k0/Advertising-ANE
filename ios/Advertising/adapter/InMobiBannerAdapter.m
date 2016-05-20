@@ -6,6 +6,8 @@
 //
 //
 
+#if ENABLE_INMOBI
+
 #import "InMobiBannerAdapter.h"
 
 @implementation InMobiBannerAdapter
@@ -191,3 +193,5 @@
 }
 
 @end
+
+#endif

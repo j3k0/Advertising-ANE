@@ -6,6 +6,8 @@
 //
 //
 
+#if ENABLE_IAD
+
 #import "IAdBannerAdapter.h"
 
 @implementation IAdBannerAdapter
@@ -156,3 +158,5 @@
 }
 
 @end
+
+#endif

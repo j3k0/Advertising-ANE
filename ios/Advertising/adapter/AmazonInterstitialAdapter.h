@@ -6,6 +6,8 @@
 //
 //
 
+#if ENABLE_AMAZON
+
 #import "AbstractAdAdapter.h"
 #import <AmazonAd/AmazonAdRegistration.h>
 #import <AmazonAd/AmazonAdOptions.h>
@@ -21,3 +23,5 @@
 - (id) initWithAdUnitId:(NSString*) adUnitId settings:(NSDictionary*) settings;
 
 @end
+
+#endif

@@ -6,6 +6,8 @@
 //
 //
 
+#if ENABLE_INMOBI
+
 #import "AbstractAdAdapter.h"
 #import <UIKit/UIKit.h>
 #import "IMInterstitial.h"
@@ -21,3 +23,5 @@
 
 - (id) initWithAdUnitId:(NSString*) adUnitId settings:(NSDictionary*) settings;
 @end
+
+#endif

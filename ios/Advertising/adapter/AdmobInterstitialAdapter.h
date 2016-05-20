@@ -6,6 +6,8 @@
 //
 //
 
+#if ENABLE_ADMOB
+
 #import "AbstractAdAdapter.h"
 #import <GoogleMobileAds/GADInterstitial.h>
 
@@ -18,3 +20,5 @@
 - (id) initWithAdUnitId:(NSString*) adUnitId settings:(NSDictionary*) settings;
 
 @end
+
+#endif

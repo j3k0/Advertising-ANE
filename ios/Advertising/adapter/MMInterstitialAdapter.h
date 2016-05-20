@@ -6,8 +6,11 @@
 //
 //
 
+#if ENABLE_MM
+
 #import "AbstractAdAdapter.h"
-#import <MMAdSDK/MMAdSDK.h>
+#import <MillennialMedia/MMSDK.h>
+#import <MillennialMedia/MMInterstitial.h>
 
 @interface MMInterstitialAdapter : AbstractAdAdapter {
     
@@ -17,3 +20,5 @@
 - (id) initWithAdUnitId:(NSString*) adUnitId settings:(NSDictionary*) settings;
 
 @end
+
+#endif

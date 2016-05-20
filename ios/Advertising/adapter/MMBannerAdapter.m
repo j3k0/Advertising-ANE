@@ -6,6 +6,9 @@
 //
 //
 
+#if ENABLE_MM
+#if ENABLE_MM_BANNER
+
 #import "MMBannerAdapter.h"
 
 static NSString* MMSDKinited = nil;
@@ -153,3 +156,6 @@ static NSString* MMSDKinited = nil;
 }
 
 @end
+
+#endif
+#endif

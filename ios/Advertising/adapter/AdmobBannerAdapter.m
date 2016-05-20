@@ -6,6 +6,8 @@
 //
 //
 
+#if ENABLE_ADMOB
+
 #import "AdmobBannerAdapter.h"
 #import <AdSupport/AdSupport.h>
 #include <CommonCrypto/CommonDigest.h>
@@ -192,3 +194,5 @@
 }
 
 @end
+
+#endif

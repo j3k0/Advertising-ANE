@@ -6,6 +6,8 @@
 //
 //
 
+#if ENABLE_IAD
+
 #import "AbstractAdAdapter.h"
 #import <iAd/iAd.h>
 
@@ -19,3 +21,5 @@
 - (id) initWithSettings:(NSDictionary*) settings;
 
 @end
+
+#endif

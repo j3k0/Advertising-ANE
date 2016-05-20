@@ -6,6 +6,8 @@
 //
 //
 
+#if ENABLE_AMAZON
+
 #import "AmazonInterstitialAdapter.h"
 
 @implementation AmazonInterstitialAdapter
@@ -137,3 +139,5 @@
 }
 
 @end
+
+#endif

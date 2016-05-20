@@ -90,6 +90,10 @@
         <copy todir="../temp/ios/GoogleMobileAds.framework" overwrite="true">
             <fileset dir="../ios/Advertising/GoogleMobileAdsSdkiOS/GoogleMobileAds.framework"/>
         </copy>
+        <copy todir="../temp/ios/MillennialMedia.framework" overwrite="true">
+            <fileset dir="../ios/Advertising/MillennialMedia.framework"/>
+        </copy>
+        <copy file="../ios/Advertising/libxml2.dylib" todir="../temp/ios/" overwrite="true"/>
     </target>
 
     <!-- Actionscript -->

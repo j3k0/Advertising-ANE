@@ -6,6 +6,8 @@
 //
 //
 
+#if ENABLE_MM
+
 #import "MMInterstitialAdapter.h"
 
 @implementation MMInterstitialAdapter
@@ -42,7 +44,7 @@
 
 - (id) initWithAdUnitId:(NSString*) adUnitId settings:(NSDictionary*) settings
 {
-    
+    self.adUnitId=adUnitId;
     if (self=[self init]) {
             
 //            if(MMSDKinited==NULL){
@@ -95,7 +97,7 @@
 
 - (void) showInPosition:(NSString*) position offsetX: (int) x offsetY:(int) y {
     
-//        NSLog(@"show interstitial %@ %d",adUnitId_,[MMInterstitial isAdAvailableForApid:adUnitId_]);
+        NSLog(@"show interstitial %@ %d", adUnitId_, [MMInterstitial isAdAvailableForApid:adUnitId_]);
     
         // check if interstitial ready
         if (cached_||[MMInterstitial isAdAvailableForApid:adUnitId_]) {
@@ -233,3 +235,5 @@
 }
 
 @end
+
+#endif

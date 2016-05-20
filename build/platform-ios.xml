@@ -2,34 +2,41 @@
     <sdkVersion>7.0</sdkVersion>
     <linkerOptions>
         <option>-ios_version_min 5.0</option>
-        <option>-framework StoreKit</option>
-        <option>-framework CoreGraphics</option>
-        <option>-framework MessageUI</option>
-        <option>-framework iAd</option>
-        <option>-framework MediaPlayer</option>
+        <option>-lxml2</option>
         <option>-framework AdSupport</option>
+        <option>-framework AudioToolbox</option>
+        <option>-framework AVFoundation</option>
+        <option>-framework CFNetwork</option>
+        <option>-framework CoreBluetooth</option>
+        <option>-framework CoreFoundation</option>
+        <option>-framework CoreGraphics</option>
+        <option>-framework CoreLocation</option>
+        <option>-framework CoreMedia</option>
+        <option>-framework CoreTelephony</option>
+        <option>-framework CoreVideo</option>
+        <!-- option>-framework iAd</option -->
         <option>-framework EventKit</option>
         <option>-framework EventKitUI</option>
-        <option>-framework CoreTelephony</option>
+        <option>-framework MediaPlayer</option>
+        <option>-framework MessageUI</option>
+        <option>-framework Security</option>
+        <option>-framework StoreKit</option>
+        <option>-framework SystemConfiguration</option>
+        <option>-framework UIKit</option>
         <!--option>-framework AddressBook</option>
         <option>-framework AddressBookUI</option>
         <option>-framework PassKit</option>
         <option>-weak_framework Twitter</option>
-        <option>-weak_framework Social</option-->
-        <option>-framework AudioToolbox</option>
-        <option>-framework AVFoundation</option>
-        <!--option>-framework CFNetwork</option>
-        <option>-framework CoreLocation</option>
+        <option>-weak_framework Social</option>
         <option>-framework MobileCoreServices</option>
-        <option>-framework QuartzCore</option>
-        <option>-framework Security</option-->
-        <option>-framework SystemConfiguration</option>
+        <option>-framework QuartzCore</option-->
     </linkerOptions>
     <packagedDependencies>
         <!--packagedDependency>MillennialMedia.framework</packagedDependency>
         <packagedDependency>SpeechKit.framework</packagedDependency>
         <packagedDependency>AmazonAd.framework</packagedDependency>
         <packagedDependency>AmazonInsightsSDK.framework</packagedDependency-->
+        <packagedDependency>MillennialMedia.framework</packagedDependency>
         <packagedDependency>GoogleMobileAds.framework</packagedDependency>
     </packagedDependencies>
 </platform>

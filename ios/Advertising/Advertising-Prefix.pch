@@ -5,3 +5,10 @@
 #ifdef __OBJC__
     #import <Foundation/Foundation.h>
 #endif
+
+// #define ENABLE_ADMOB 1
+// #define ENABLE_IAD 1
+// #define ENABLE_INMOBI 1
+// #define ENABLE_AMAZON 1
+#define ENABLE_MM 1
+// #define ENABLE_MM_BANNER 1

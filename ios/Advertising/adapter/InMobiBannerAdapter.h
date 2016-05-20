@@ -6,6 +6,8 @@
 //
 //
 
+#if ENABLE_INMOBI
+
 #import "AbstractAdAdapter.h"
 #import "IMBanner.h"
 #import "IMBannerDelegate.h"
@@ -28,3 +30,5 @@
 - (id) initWithSize:(NSString*)size adUnitId:(NSString*) adUnitId settings:(NSDictionary*) settings;
 
 @end
+
+#endif

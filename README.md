@@ -61,7 +61,7 @@ The current supporting network are list below:
 
 ##Install the library
 
-Add the AmazonAds-ANE library to your project.
+Add the Advertising-ANE library to your project.
 
 In Flash Professional CS6:
 

@@ -6,6 +6,9 @@
 //
 //
 
+#if ENABLE_MM
+#if ENABLE_MM_BANNER
+
 #import "AbstractAdAdapter.h"
 #import <MMAdSDK/MMSDK.h>
 #import <MMAdSDK/MMAdView.h>
@@ -22,3 +25,6 @@
 
 
 @end
+
+#endif
+#endif

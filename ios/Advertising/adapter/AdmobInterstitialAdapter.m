@@ -6,6 +6,8 @@
 //
 //
 
+#if ENABLE_ADMOB
+
 #import "AdmobInterstitialAdapter.h"
 
 @implementation AdmobInterstitialAdapter
@@ -142,3 +144,5 @@
 
 
 @end
+
+#endif

@@ -6,6 +6,8 @@
 //
 //
 
+#if ENABLE_AMAZON
+
 #import "AmazonBannerAdapter.h"
 
 @implementation AmazonBannerAdapter
@@ -154,3 +156,5 @@
 }
 
 @end
+
+#endif

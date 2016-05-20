@@ -6,6 +6,8 @@
 //
 //
 
+#if ENABLE_INMOBI
+
 #import "InMobiInterstitialAdapter.h"
 
 @implementation InMobiInterstitialAdapter
@@ -124,3 +126,5 @@
 }
 
 @end
+
+#endif

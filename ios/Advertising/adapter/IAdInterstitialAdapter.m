@@ -6,6 +6,8 @@
 //
 //
 
+#if ENABLE_IAD
+
 #import "IAdInterstitialAdapter.h"
 
 @implementation IAdInterstitialAdapter
@@ -149,3 +151,5 @@
 
 
 @end
+
+#endif

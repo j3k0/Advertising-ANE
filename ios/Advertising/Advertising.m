@@ -8,7 +8,10 @@
 
 #import "Advertising.h"
 #import "AdManager.h"
+
+#if ENABLE_IAD
 #import <iAd/iAd.h>
+#endif
 
 AdManager *adManager_;
 

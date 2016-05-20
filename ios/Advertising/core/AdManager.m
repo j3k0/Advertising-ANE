@@ -7,16 +7,32 @@
 //
 
 #import "AdManager.h"
-//#import "IAdBannerAdapter.h"
-//#import "IAdInterstitialAdapter.h"
+
+#if ENABLE_IAD
+#import "IAdBannerAdapter.h"
+#import "IAdInterstitialAdapter.h"
+#endif
+
+#if ENABLE_ADMOB
 #import "AdmobBannerAdapter.h"
 #import "AdmobInterstitialAdapter.h"
-//#import "AmazonBannerAdapter.h"
-//#import "AmazonInterstitialAdapter.h"
-//#import "InMobiBannerAdapter.h"
-//#import "InMobiInterstitialAdapter.h"
-//#import "MMBannerAdapter.h"
-//#import "MMInterstitialAdapter.h"
+#endif
+
+#if ENABLE_AMAZON
+#import "AmazonBannerAdapter.h"
+#import "AmazonInterstitialAdapter.h"
+#endif
+
+#if ENABLE_INMOBI
+#import "InMobiBannerAdapter.h"
+#import "InMobiInterstitialAdapter.h"
+#endif
+
+#if ENABLE_MM
+#import "MMBannerAdapter.h"
+#import "MMInterstitialAdapter.h"
+#endif
+
 #import "BackFillBannerAdapter.h"
 #import "BackFillInterstitialAdapter.h"
 
@@ -219,53 +235,89 @@
     // create different Adapater
     if([size isEqualToString:kAdAdapterSizeINTERSTITIAL]){
         
-        if([network isEqualToString:kNetworkTypeADMOB]){
+        if (NO) {
+        }
+#if ENABLE_ADMOB
+        else if([network isEqualToString:kNetworkTypeADMOB]){
            
             adapter = [[AdmobInterstitialAdapter alloc] initWithAdUnitId:adUnitId settings:settings];
             
-        } /*else if([network isEqualToString:kNetworkTypeAMAZON]){
+        }
+#endif
+#if ENABLE_AMAZON
+        else if([network isEqualToString:kNetworkTypeAMAZON]){
 
             adapter = [[AmazonInterstitialAdapter alloc] initWithAdUnitId:adUnitId settings:settings];
             
-        } else if([network isEqualToString:kNetworkTypeIAD]){
+        }
+#endif
+#if ENABLE_IAD
+        else if([network isEqualToString:kNetworkTypeIAD]){
 
             adapter = [[IAdInterstitialAdapter alloc] initWithSettings:settings];
             
-        } else if([network isEqualToString:kNetworkTypeMILLENNIALMEDIA]){
+        }
+#endif
+#if ENABLE_MM
+        else if([network isEqualToString:kNetworkTypeMILLENNIALMEDIA]){
             
             adapter = [[MMInterstitialAdapter alloc] initWithAdUnitId:adUnitId settings:settings];
             
-        } else if([network isEqualToString:kNetworkTypeINMOBI]){
+        }
+#endif
+#if ENABLE_INMOBI
+else if([network isEqualToString:kNetworkTypeINMOBI]){
             
             adapter = [[InMobiInterstitialAdapter alloc] initWithAdUnitId:adUnitId settings:settings];
             
-        } */else if([network isEqualToString:kNetworkTypeBACKFILL]){
+        }
+#endif
+        else if([network isEqualToString:kNetworkTypeBACKFILL]){
             
             adapter = [[BackFillInterstitialAdapter alloc] initWithLink:adUnitId settings:settings];
             
         }
     } else {
-        if([network isEqualToString:kNetworkTypeADMOB]){
+        if (NO) {
+        }
+#if ENABLE_ADMOB
+        else if([network isEqualToString:kNetworkTypeADMOB]){
             
             adapter = [[AdmobBannerAdapter alloc] initWithSize:size adUnitId:adUnitId settings:settings];
             
-        } /*else if([network isEqualToString:kNetworkTypeAMAZON]){
+        }
+#endif
+#if ENABLE_AMAZON
+        else if([network isEqualToString:kNetworkTypeAMAZON]){
             
             adapter = [[AmazonBannerAdapter alloc] initWithSize:size adUnitId:adUnitId settings:settings];
             
-        } else if([network isEqualToString:kNetworkTypeIAD]){
+        }
+#endif
+#if ENABLE_IAD
+        else if([network isEqualToString:kNetworkTypeIAD]){
             
             adapter = [[IAdBannerAdapter alloc] initWithSize:size settings:settings];
             
-        } else if([network isEqualToString:kNetworkTypeMILLENNIALMEDIA]){
+        }
+#endif
+#if ENABLE_MM
+#if ENABLE_MM_BANNER
+        else if([network isEqualToString:kNetworkTypeMILLENNIALMEDIA]){
             
             adapter = [[MMBannerAdapter alloc] initWithSize:size adUnitId:adUnitId settings:settings];
             
-        } else if([network isEqualToString:kNetworkTypeINMOBI]){
+        }
+#endif
+#endif
+#if ENABLE_INMOBI
+        else if([network isEqualToString:kNetworkTypeINMOBI]){
             
             adapter = [[InMobiBannerAdapter alloc] initWithSize:size adUnitId:adUnitId settings:settings];
             
-        } */else if([network isEqualToString:kNetworkTypeBACKFILL]){
+        }
+#endif
+        else if([network isEqualToString:kNetworkTypeBACKFILL]){
             
             adapter = [[BackFillBannerAdapter alloc] initWithSize:size link:adUnitId settings:settings];
         }
