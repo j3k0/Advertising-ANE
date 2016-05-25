@@ -6,7 +6,6 @@
 //
 //
 
-#if ENABLE_MM
 #if ENABLE_MM_BANNER
 
 #import "AbstractAdAdapter.h"
@@ -26,5 +25,4 @@
 
 @end
 
-#endif
 #endif

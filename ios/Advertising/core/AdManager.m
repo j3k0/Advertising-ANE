@@ -28,10 +28,8 @@
 #import "InMobiInterstitialAdapter.h"
 #endif
 
-#if ENABLE_MM
 #import "MMBannerAdapter.h"
 #import "MMInterstitialAdapter.h"
-#endif
 
 #import "BackFillBannerAdapter.h"
 #import "BackFillInterstitialAdapter.h"
@@ -258,7 +256,7 @@
             
         }
 #endif
-#if ENABLE_MM
+#if ENABLE_MM_INTERSTITIAL
         else if([network isEqualToString:kNetworkTypeMILLENNIALMEDIA]){
             
             adapter = [[MMInterstitialAdapter alloc] initWithAdUnitId:adUnitId settings:settings];
@@ -301,14 +299,12 @@ else if([network isEqualToString:kNetworkTypeINMOBI]){
             
         }
 #endif
-#if ENABLE_MM
 #if ENABLE_MM_BANNER
         else if([network isEqualToString:kNetworkTypeMILLENNIALMEDIA]){
             
             adapter = [[MMBannerAdapter alloc] initWithSize:size adUnitId:adUnitId settings:settings];
             
         }
-#endif
 #endif
 #if ENABLE_INMOBI
         else if([network isEqualToString:kNetworkTypeINMOBI]){

@@ -28,7 +28,7 @@
     if (self=[self init]) {
     
         CGRect rect;
-        NSString* url;
+        NSString* url = NULL;
         
         if([size isEqualToString:kAdAdapterSizeBANNER]){
             originWidth_=320;

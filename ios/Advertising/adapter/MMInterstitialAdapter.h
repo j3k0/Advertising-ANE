@@ -6,16 +6,17 @@
 //
 //
 
-#if ENABLE_MM
+#if ENABLE_MM_INTERSTITIAL
 
 #import "AbstractAdAdapter.h"
-#import <MillennialMedia/MMSDK.h>
-#import <MillennialMedia/MMInterstitial.h>
+#import <MMAdSDK/MMAdSDK.h>
 
-@interface MMInterstitialAdapter : AbstractAdAdapter {
+@interface MMInterstitialAdapter : AbstractAdAdapter <MMInterstitialDelegate> {
     
-    Boolean cached_;
+    MMInterstitialAd *mmInterstitialAd_;
 }
+
+@property (strong, nonatomic) MMInterstitialAd *mmInterstitialAd;
 
 - (id) initWithAdUnitId:(NSString*) adUnitId settings:(NSDictionary*) settings;
 

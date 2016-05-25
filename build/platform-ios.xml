@@ -14,29 +14,33 @@
         <option>-framework CoreMedia</option>
         <option>-framework CoreTelephony</option>
         <option>-framework CoreVideo</option>
-        <!-- option>-framework iAd</option -->
         <option>-framework EventKit</option>
         <option>-framework EventKitUI</option>
+        <option>-framework Foundation</option>
         <option>-framework MediaPlayer</option>
         <option>-framework MessageUI</option>
         <option>-framework Security</option>
         <option>-framework StoreKit</option>
         <option>-framework SystemConfiguration</option>
         <option>-framework UIKit</option>
-        <!--option>-framework AddressBook</option>
+        <!--
+        <option>-framework AddressBook</option>
         <option>-framework AddressBookUI</option>
         <option>-framework PassKit</option>
         <option>-weak_framework Twitter</option>
         <option>-weak_framework Social</option>
         <option>-framework MobileCoreServices</option>
-        <option>-framework QuartzCore</option-->
+        <option>-framework QuartzCore</option>
+        -->
     </linkerOptions>
     <packagedDependencies>
-        <!--packagedDependency>MillennialMedia.framework</packagedDependency>
+        <!--
+        <packagedDependency>MillennialMedia.framework</packagedDependency>
         <packagedDependency>SpeechKit.framework</packagedDependency>
         <packagedDependency>AmazonAd.framework</packagedDependency>
-        <packagedDependency>AmazonInsightsSDK.framework</packagedDependency-->
-        <packagedDependency>MillennialMedia.framework</packagedDependency>
+        <packagedDependency>AmazonInsightsSDK.framework</packagedDependency>
+        -->
+        <packagedDependency>MMAdSDK.framework</packagedDependency>
         <packagedDependency>GoogleMobileAds.framework</packagedDependency>
     </packagedDependencies>
 </platform>

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A618F5C21CF4B3CC00807E22 /* MMAdSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A618F5C11CF4B3CC00807E22 /* MMAdSDK.framework */; };
 		A61EAD491CEDD43E007BE2F2 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A61EAD481CEDD43D007BE2F2 /* MessageUI.framework */; };
 		A61EAD4B1CEDD470007BE2F2 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A61EAD4A1CEDD470007BE2F2 /* CoreBluetooth.framework */; };
 		A61EAD4D1CEDD483007BE2F2 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A61EAD4C1CEDD483007BE2F2 /* CoreTelephony.framework */; };
@@ -20,7 +21,6 @@
 		A61EAD5D1CEDFFB5007BE2F2 /* IAdBannerAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = E0E2AD8C19B1D9260097D303 /* IAdBannerAdapter.m */; };
 		A61EAD5E1CEDFFB8007BE2F2 /* AmazonInterstitialAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = E01240A019BC3CE1002C94C4 /* AmazonInterstitialAdapter.m */; };
 		A61EAD5F1CEDFFBB007BE2F2 /* AmazonBannerAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = E0E2AD8819B0913B0097D303 /* AmazonBannerAdapter.m */; };
-		A61EAD611CEE0218007BE2F2 /* MillenialMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A61EAD601CEE0218007BE2F2 /* MillenialMedia.framework */; };
 		A667BAA81CC8BBC30011919E /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A667BAA71CC8BBC30011919E /* GoogleMobileAds.framework */; };
 		A6E598541CC7DA8E0007980F /* BackFillInterstitialAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = E0BF36CF19E7B5A4004FBCD0 /* BackFillInterstitialAdapter.m */; };
 		A6E598551CC7DA920007980F /* BackFillBannerAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = E0BCEBD619E5443E00975F97 /* BackFillBannerAdapter.m */; };
@@ -58,12 +58,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A618F5C11CF4B3CC00807E22 /* MMAdSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MMAdSDK.framework; path = Advertising/MMAdSDK.framework; sourceTree = "<group>"; };
 		A61EAD481CEDD43D007BE2F2 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		A61EAD4A1CEDD470007BE2F2 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		A61EAD4C1CEDD483007BE2F2 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		A61EAD4E1CEDD4A3007BE2F2 /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
 		A61EAD561CEDF986007BE2F2 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = Advertising/libxml2.dylib; sourceTree = "<group>"; };
-		A61EAD601CEE0218007BE2F2 /* MillenialMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MillenialMedia.framework; path = Advertising/MillenialMedia.framework; sourceTree = "<group>"; };
 		A667BAA71CC8BBC30011919E /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMobileAds.framework; path = GoogleMobileAdsSdkiOS/GoogleMobileAds.framework; sourceTree = "<group>"; };
 		E012408F19BBE6FC002C94C4 /* InMobiBannerAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InMobiBannerAdapter.h; path = adapter/InMobiBannerAdapter.h; sourceTree = "<group>"; };
 		E012409019BBE6FC002C94C4 /* InMobiBannerAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InMobiBannerAdapter.m; path = adapter/InMobiBannerAdapter.m; sourceTree = "<group>"; };
@@ -129,8 +129,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E0848B8419AC318800FB4930 /* Foundation.framework in Frameworks */,
 				A61EAD571CEDF986007BE2F2 /* libxml2.dylib in Frameworks */,
 				E0E2AD9119B208D80097D303 /* AdSupport.framework in Frameworks */,
+				A618F5C21CF4B3CC00807E22 /* MMAdSDK.framework in Frameworks */,
 				E0848B9019AC318800FB4930 /* AudioToolbox.framework in Frameworks */,
 				E0848B9E19AC318800FB4930 /* AVFoundation.framework in Frameworks */,
 				A61EAD4B1CEDD470007BE2F2 /* CoreBluetooth.framework in Frameworks */,
@@ -138,7 +140,6 @@
 				E0848B8C19AC318800FB4930 /* CoreGraphics.framework in Frameworks */,
 				E0848B9A19AC318800FB4930 /* CoreMedia.framework in Frameworks */,
 				E0848B9819AC318800FB4930 /* CoreLocation.framework in Frameworks */,
-				A61EAD611CEE0218007BE2F2 /* MillenialMedia.framework in Frameworks */,
 				A61EAD4F1CEDD4A3007BE2F2 /* EventKitUI.framework in Frameworks */,
 				E012409819BC2C81002C94C4 /* EventKit.framework in Frameworks */,
 				A61EAD4D1CEDD483007BE2F2 /* CoreTelephony.framework in Frameworks */,
@@ -153,7 +154,6 @@
 				E0848B8819AC318800FB4930 /* UIKit.framework in Frameworks */,
 				E0848B9619AC318800FB4930 /* OpenGLES.framework in Frameworks */,
 				E0848B8E19AC318800FB4930 /* SystemConfiguration.framework in Frameworks */,
-				E0848B8419AC318800FB4930 /* Foundation.framework in Frameworks */,
 				E0848B9419AC318800FB4930 /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -181,8 +181,8 @@
 		E0848B8219AC318800FB4930 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				A61EAD601CEE0218007BE2F2 /* MillenialMedia.framework */,
 				A61EAD561CEDF986007BE2F2 /* libxml2.dylib */,
+				A618F5C11CF4B3CC00807E22 /* MMAdSDK.framework */,
 				A61EAD4E1CEDD4A3007BE2F2 /* EventKitUI.framework */,
 				A61EAD4C1CEDD483007BE2F2 /* CoreTelephony.framework */,
 				A61EAD4A1CEDD470007BE2F2 /* CoreBluetooth.framework */,

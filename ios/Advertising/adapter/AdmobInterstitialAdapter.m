@@ -93,8 +93,8 @@
 
             // Enable test ads on simulators.
             // [testDevices addObject:GAD_SIMULATOR_ID];
-            [testDevices addObject:deviceID];
-
+            [testDevices addObject: deviceID];
+            [testDevices addObject: @"b5f5b51c7a80ae5397cb305a64c51116"];
             // set the test devices
             request.testDevices = testDevices;
 //            request.testDevices = @[deviceID];

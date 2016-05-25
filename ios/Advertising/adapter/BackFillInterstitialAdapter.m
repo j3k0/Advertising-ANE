@@ -27,7 +27,7 @@
     if (self=[self init]) {
         
 //        CGRect rect;
-        NSString* url;
+        NSString* url = NULL;
         if([settings objectForKey:@"interstitial"]){
             url=[settings objectForKey:@"interstitial"];
         }
