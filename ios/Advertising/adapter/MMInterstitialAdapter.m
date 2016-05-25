@@ -15,6 +15,7 @@
 @synthesize mmInterstitialAd = mmInterstitialAd_;
 
 static NSString* MMSDKinited = nil;
+static int g_error = 0;
 
 - (void) destroy{
     /*
@@ -126,6 +127,14 @@ static NSString* MMSDKinited = nil;
         [self.mmInterstitialAd showFromViewController:rootController_];
     }
     else {
+        if (g_error == MMSDKErrorNoFill) {
+            // No relevant content, let's pretend we displayed the ad.
+            [delegate_ adAdapterWillPresent:self];
+            [delegate_ adAdapterDidPresent:self];
+            [delegate_ adAdapterWillDismiss:self];
+            [delegate_ adAdapterDidDismiss:self];
+            return;
+        }
         if (self.mmInterstitialAd.expired) {
             NSLog(@"[AdvertisingANE::MMInterstitialAdapter] MMInterstitialAd expired => reloading");
             [self.mmInterstitialAd load:nil];
@@ -160,6 +169,7 @@ static NSString* MMSDKinited = nil;
 
 - (void) load:(NSDictionary*)settings {
     NSLog(@"[AdvertisingANE::MMInterstitialAdapter] load");
+    g_error = 0;
     if(!self.mmInterstitialAd.ready) {
         NSLog(@"[AdvertisingANE::MMInterstitialAdapter] not ready => loading");
         [self.mmInterstitialAd load:nil];
@@ -236,6 +246,7 @@ static NSString* MMSDKinited = nil;
  * @param ad The ad placement which was successfully requested.
  */
 -(void)interstitialAdLoadDidSucceed:(MMInterstitialAd*)ad {
+    g_error = 0;
     NSLog(@"[AdvertisingANE::MMInterstitialAdapter] interstitialAdLoadDidSucceed");
     if(self->isNeedToShow_){
         NSLog(@"[AdvertisingANE::MMInterstitialAdapter] isNeedToShow -> showing");
@@ -255,7 +266,14 @@ static NSString* MMSDKinited = nil;
  */
 -(void)interstitialAd:(MMInterstitialAd*)ad loadDidFailWithError:(NSError*)error {
     NSLog(@"[AdvertisingANE::MMInterstitialAdapter] loadDidFailWithError:%@", error);
-    [delegate_ adAdapter:self didFailToReceiveAdWithError:error.localizedDescription];
+    g_error = error.code;
+    if (error.code == MMSDKErrorNoFill) {
+        NSLog(@"[AdvertisingANE::MMInterstitialAdapter] no relevant content... let's pretend everything went fine.");
+        [delegate_ adAdapterDidReceiveAd:self];
+    }
+    else {
+        [delegate_ adAdapter:self didFailToReceiveAdWithError:error.localizedDescription];
+    }
 }
 
 /**
