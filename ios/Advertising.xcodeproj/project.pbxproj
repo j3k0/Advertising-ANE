@@ -7,12 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A618F5C21CF4B3CC00807E22 /* MMAdSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A618F5C11CF4B3CC00807E22 /* MMAdSDK.framework */; };
 		A61EAD491CEDD43E007BE2F2 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A61EAD481CEDD43D007BE2F2 /* MessageUI.framework */; };
 		A61EAD4B1CEDD470007BE2F2 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A61EAD4A1CEDD470007BE2F2 /* CoreBluetooth.framework */; };
 		A61EAD4D1CEDD483007BE2F2 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A61EAD4C1CEDD483007BE2F2 /* CoreTelephony.framework */; };
 		A61EAD4F1CEDD4A3007BE2F2 /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A61EAD4E1CEDD4A3007BE2F2 /* EventKitUI.framework */; };
-		A61EAD571CEDF986007BE2F2 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A61EAD561CEDF986007BE2F2 /* libxml2.dylib */; };
 		A61EAD581CEDFF9A007BE2F2 /* MMInterstitialAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = E01240A419BC45EF002C94C4 /* MMInterstitialAdapter.m */; };
 		A61EAD591CEDFFA7007BE2F2 /* MMBannerAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = E012409419BC2A97002C94C4 /* MMBannerAdapter.m */; };
 		A61EAD5A1CEDFFA9007BE2F2 /* InMobiInterstitialAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = E01240A819BDAE82002C94C4 /* InMobiInterstitialAdapter.m */; };
@@ -130,9 +128,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E0848B8419AC318800FB4930 /* Foundation.framework in Frameworks */,
-				A61EAD571CEDF986007BE2F2 /* libxml2.dylib in Frameworks */,
 				E0E2AD9119B208D80097D303 /* AdSupport.framework in Frameworks */,
-				A618F5C21CF4B3CC00807E22 /* MMAdSDK.framework in Frameworks */,
 				E0848B9019AC318800FB4930 /* AudioToolbox.framework in Frameworks */,
 				E0848B9E19AC318800FB4930 /* AVFoundation.framework in Frameworks */,
 				A61EAD4B1CEDD470007BE2F2 /* CoreBluetooth.framework in Frameworks */,
