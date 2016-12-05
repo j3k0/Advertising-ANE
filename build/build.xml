@@ -87,15 +87,30 @@
         <copy todir="../temp/AmazonInsightsSDK.framework" overwrite="true">
             <fileset dir="../ios/AdNetworkSupport/Amazon/AmazonInsightsSDK.framework"/>
         </copy-->
+        <copy todir="../temp/ios/FirebaseAnalytics.framework" overwrite="true">
+            <fileset dir="../ios/Advertising/Firebase/Analytics/FirebaseAnalytics.framework"/>
+        </copy>
+        <copy todir="../temp/ios/FirebaseCore.framework" overwrite="true">
+            <fileset dir="../ios/Advertising/Firebase/Analytics/FirebaseCore.framework"/>
+        </copy>
+        <copy todir="../temp/ios/FirebaseInstanceID.framework" overwrite="true">
+            <fileset dir="../ios/Advertising/Firebase/Analytics/FirebaseInstanceID.framework"/>
+        </copy>
+        <copy todir="../temp/ios/GoogleInterchangeUtilities.framework" overwrite="true">
+            <fileset dir="../ios/Advertising/Firebase/Analytics/GoogleInterchangeUtilities.framework"/>
+        </copy>
+        <copy todir="../temp/ios/GoogleSymbolUtilities.framework" overwrite="true">
+            <fileset dir="../ios/Advertising/Firebase/Analytics/GoogleSymbolUtilities.framework"/>
+        </copy>
         <copy todir="../temp/ios/GoogleMobileAds.framework" overwrite="true">
-            <fileset dir="../ios/Advertising/GoogleMobileAdsSdkiOS/GoogleMobileAds.framework"/>
+            <fileset dir="../ios/Advertising/Firebase/AdMob/GoogleMobileAds.framework"/>
         </copy>
         <!--copy todir="../temp/ios/MillennialMedia.framework" overwrite="true">
             <fileset dir="../ios/Advertising/MillennialMedia.framework"/>
         </copy-->
-        <copy todir="../temp/ios/MMAdSDK.framework" overwrite="true">
+        <!--copy todir="../temp/ios/MMAdSDK.framework" overwrite="true">
             <fileset dir="../ios/Advertising/MMAdSDK.framework"/>
-        </copy>
+        </copy-->
         <copy file="../ios/Advertising/libxml2.dylib" todir="../temp/ios/" overwrite="true"/>
     </target>
 

@@ -1,4 +1,4 @@
-<extension xmlns="http://ns.adobe.com/air/extension/4.0">
+<extension xmlns="http://ns.adobe.com/air/extension/18.0">
     <id>digicrafts.extensions.Advertising</id>
     <versionNumber>1.1.0</versionNumber>
     <copyright>(c) 2015, Digicrafts, Inc. All rights reserved.</copyright>

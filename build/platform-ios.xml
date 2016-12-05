@@ -1,7 +1,7 @@
-<platform xmlns="http://ns.adobe.com/air/extension/4.0">
+<platform xmlns="http://ns.adobe.com/air/extension/18.0">
     <sdkVersion>7.0</sdkVersion>
     <linkerOptions>
-        <option>-ios_version_min 5.0</option>
+        <option>-ios_version_min 7.0</option>
         <option>-lxml2</option>
         <option>-framework AdSupport</option>
         <option>-framework AudioToolbox</option>
@@ -39,8 +39,13 @@
         <packagedDependency>SpeechKit.framework</packagedDependency>
         <packagedDependency>AmazonAd.framework</packagedDependency>
         <packagedDependency>AmazonInsightsSDK.framework</packagedDependency>
-        -->
         <packagedDependency>MMAdSDK.framework</packagedDependency>
+        -->
+        <packagedDependency>FirebaseAnalytics.framework</packagedDependency>
+        <packagedDependency>FirebaseCore.framework</packagedDependency>
+        <packagedDependency>FirebaseInstanceID.framework</packagedDependency>
+        <packagedDependency>GoogleInterchangeUtilities.framework</packagedDependency>
+        <packagedDependency>GoogleSymbolUtilities.framework</packagedDependency>
         <packagedDependency>GoogleMobileAds.framework</packagedDependency>
     </packagedDependencies>
 </platform>
