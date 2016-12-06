@@ -26,3 +26,8 @@ temp/
 ios/Advertising/mm-ad-sdk-ios-*
 ios/Advertising/MillennialMedia.framework/
 ios/Advertising/MMAdSDK.framework/
+
+build/build.config.bak
+ios/Advertising/Firebase/
+ios/Advertising/GoogleMobileAdsSdkiOS.b4/
+ios/Advertising/GoogleMobileAdsSdkiOS.new/
