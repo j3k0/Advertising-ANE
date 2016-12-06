@@ -111,7 +111,7 @@
         <!--copy todir="../temp/ios/MMAdSDK.framework" overwrite="true">
             <fileset dir="../ios/Advertising/MMAdSDK.framework"/>
         </copy-->
-        <copy file="../ios/Advertising/libxml2.dylib" todir="../temp/ios/" overwrite="true"/>
+        <!--copy file="../ios/Advertising/libxml2.dylib" todir="../temp/ios/" overwrite="true"/-->
     </target>
 
     <!-- Actionscript -->
