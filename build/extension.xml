@@ -10,6 +10,13 @@
                 <finalizer>digicrafts.extensions.AdvertisingExtension</finalizer>
             </applicationDeployment>
         </platform>
+        <platform name="Android-ARM64">
+            <applicationDeployment>
+                <nativeLibrary>libAdvertising.jar</nativeLibrary>
+                <initializer>digicrafts.extensions.AdvertisingExtension</initializer>
+                <finalizer>digicrafts.extensions.AdvertisingExtension</finalizer>
+            </applicationDeployment>
+        </platform>
         <platform name="iPhone-ARM">
             <applicationDeployment>
                 <nativeLibrary>libAdvertising.a</nativeLibrary>
