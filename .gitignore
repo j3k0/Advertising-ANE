@@ -31,3 +31,12 @@ build/build.config.bak
 ios/Advertising/Firebase/
 ios/Advertising/GoogleMobileAdsSdkiOS.b4/
 ios/Advertising/GoogleMobileAdsSdkiOS.new/
+
+android/bin
+android/gen
+android/lint.xml
+android/lib/src/main/gen/
+android/full_libs/
+android/\.gradle/
+android/lib/build/
+
