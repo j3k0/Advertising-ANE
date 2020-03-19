@@ -28,7 +28,7 @@
             <arg line="-sdk ${ios.sdkversion}"/>
             <arg line="-alltargets"/>
             <arg line="-configuration Release"/>
-            <arg line="SYMROOT=temp/ios/build/"/>
+            <arg line="SYMROOT=$(PWD)/../ios/temp/ios/build"/>
         </exec>
 
         <copy file="../ios/temp/ios/build/Release-iphoneos/lib${name}.a" todir="temp/ios" overwrite="true"/>
@@ -45,6 +45,7 @@
 
         <!-- make the build directory -->
         <mkdir dir="temp/android"/>
+        <mkdir dir="../android/lib/dependencies"/>
 
         <exec executable="/usr/libexec/java_home" outputproperty="java.home">
             <!-- <arg line="-v 1.8" /> -->
