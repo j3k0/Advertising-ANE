@@ -13,7 +13,7 @@ import com.adobe.fre.FREFunction;
 
 import digicrafts.extensions.core.AbstractAdAdapter;
 import digicrafts.extensions.core.AdManager;
-
+import digicrafts.extensions.adapter.Admob;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -44,20 +44,22 @@ public class AdvertisingContext extends FREContext {
 
         super();
 
-        log("start init");
+        Log.d(TAG, "start init");
 
         // create list to hold the functions
         _methods = new ArrayList<AdvertisingFunction<?>>();
 
         try {
 
-            log("init method");
+            Log.d(TAG, "init method");
             //
         _methods.add(new AdvertisingFunction<Void>("ext_initialize") {
                 public Void onCall(AdvertisingContext context, Object[] args) {
 
+                    Admob.initialize(context, context.getActivity(), null);
+
                     // create a AdManager Instance
-                    _adManager=new AdManager(context);
+                    _adManager = new AdManager(context);
                     // init static var
                     AdManager.packageName = context.getActivity().getPackageName();
 //                    // Get hash key
@@ -76,7 +78,7 @@ public class AdvertisingContext extends FREContext {
 //                    }
                     // Get device id
                     String android_id = Settings.Secure.getString(context.getActivity().getContentResolver(), Settings.Secure.ANDROID_ID);
-                    AdManager.deviceID=md5(android_id).toUpperCase();
+                    AdManager.deviceID = md5(android_id).toUpperCase();
 
                     // Get location
                     try{
@@ -205,7 +207,7 @@ public class AdvertisingContext extends FREContext {
 
         }
 
-        log("start end");
+        Log.d(TAG, "start end");
     }
 
 	@Override
@@ -315,8 +317,10 @@ public class AdvertisingContext extends FREContext {
      * @param message
      */
     public void log(String message) {
-        Log.d(TAG, message);
-//        dispatchStatusEventAsync("LOGGING", message);
+        if (message != null) {
+            Log.d(TAG, message);
+            dispatchStatusEventAsync("LOGGING", message);
+        }
     }
 
     /**

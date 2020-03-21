@@ -2,9 +2,10 @@ package digicrafts.extensions.adapter;
 
 import android.app.Activity;
 import android.graphics.Rect;
-import android.util.Log;
 import android.view.ViewGroup;
 import com.google.android.gms.ads.*;
+import com.google.android.gms.ads.initialization.*;
+import digicrafts.extensions.AdvertisingContext;
 import digicrafts.extensions.core.AbstractAdAdapter;
 import digicrafts.extensions.core.AdAdapterInterface;
 import digicrafts.extensions.core.AdManager;
@@ -20,18 +21,25 @@ public class AdmobInterstitialAdapter extends AbstractAdAdapter {
 
     private InterstitialAd _interstitialAd;
     private Boolean _showAfterLoad;
+    private AdvertisingContext _context;
+    private Activity _activity;
 
+    public void log(String message) {
+        if (_context != null && message != null)
+            _context.log("[AdmobInterstitialAdapter] " + message);
+    }
 
 // Constructor
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-    public AdmobInterstitialAdapter(Activity activity, String adUnitId, Map<String, Object> settings){
-
+    public AdmobInterstitialAdapter(AdvertisingContext context, Activity activity, String adUnitId, Map<String, Object> settings){
+        log("constructor()");
         if(activity!=null) {
-
             // init
-            this.settings=settings;
+            this.settings = settings;
+            this._context = context;
+            this._activity = activity;
 
             // Create an ad.
             _interstitialAd = new InterstitialAd(activity);
@@ -42,6 +50,7 @@ public class AdmobInterstitialAdapter extends AbstractAdAdapter {
             _interstitialAd.setAdListener(new AdListener() {
                 @Override
                 public void onAdClosed() {
+                    log("onAdClosed()");
                     super.onAdClosed();
                     callOnAdWillDismiss();
                     callOnAdDidDismiss();
@@ -49,6 +58,7 @@ public class AdmobInterstitialAdapter extends AbstractAdAdapter {
 
                 @Override
                 public void onAdFailedToLoad(int errorCode) {
+                    log("onAdFailedToLoad() errorCode:" + errorCode);
                     super.onAdFailedToLoad(errorCode);
 
                     String error = "no";
@@ -62,17 +72,20 @@ public class AdmobInterstitialAdapter extends AbstractAdAdapter {
                     else if(errorCode==AdRequest.ERROR_CODE_NO_FILL)
                         error="ERROR_CODE_NO_FILL";
 
+                    log("onAdFailedToLoad() error:" + error);
                     callOnAdFailedToLoad(error);
                 }
 
                 @Override
                 public void onAdLeftApplication() {
+                    log("onAdLeftApplication()");
                     super.onAdLeftApplication();
                     callOnWillLeaveApplication();
                 }
 
                 @Override
                 public void onAdOpened() {
+                    log("onAdOpened()");
                     super.onAdOpened();
                     callOnAdWillPresent();
                     callOnAdDidPresent();
@@ -80,6 +93,7 @@ public class AdmobInterstitialAdapter extends AbstractAdAdapter {
 
                 @Override
                 public void onAdLoaded() {
+                    log("onAdLoaded()");
                     super.onAdLoaded();
                     if(_showAfterLoad){
                         _showAfterLoad=false;
@@ -89,7 +103,6 @@ public class AdmobInterstitialAdapter extends AbstractAdAdapter {
                     callOnAdLoaded();
                 }
             });
-
         } else {
 
         }
@@ -107,11 +120,11 @@ public class AdmobInterstitialAdapter extends AbstractAdAdapter {
     @Override
     public void show(ViewGroup view, String position, Rect rect){
 
-        Log.d("DEBUG","_interstitialAd: "+_interstitialAd.toString());
+        log("show() _interstitialAd: " + _interstitialAd.toString());
 
         if(_interstitialAd!=null){
 
-            Log.d("DEBUG", "_interstitialAd: " + _interstitialAd.isLoaded());
+            log("show() _interstitialAd: " + _interstitialAd.isLoaded());
 
             // check if interstitial already loaded
             if(_interstitialAd.isLoaded()) {
@@ -125,40 +138,51 @@ public class AdmobInterstitialAdapter extends AbstractAdAdapter {
 
     @Override
     public void load(){
+        log("load()");
         if(_interstitialAd!=null){
-            // Create an ad request. Check logcat output for the hashed device ID to
-            // get test ads on a physical device.
-            AdRequest.Builder builder = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR);
 
-            if(AdManager.testMode){
-                builder.addTestDevice(AdManager.deviceID);
-            }
+            Admob.initialize(_context, _activity, new OnInitializationCompleteListener() {
+                @Override
+                public void onInitializationComplete(InitializationStatus initializationStatus) {
 
-            // Add extra test devices
-            if(settings != null){
-                ArrayList<String> devices = (ArrayList<String>) settings.get("testDevices");
-                if(devices != null) {
-                    for (String device : devices)
-                        builder.addTestDevice(device);
+                    // Create an ad request. Check logcat output for the hashed device ID to
+                    // get test ads on a physical device.
+                    AdRequest.Builder builder = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR);
+
+                    if(AdManager.testMode){
+                        log("testMode!");
+                        builder.addTestDevice(AdManager.deviceID);
+                    }
+
+                    // Add extra test devices
+                    if(settings != null){
+                        ArrayList<String> devices = (ArrayList<String>) settings.get("testDevices");
+                        log("test devices: " + devices);
+                        if(devices != null) {
+                            for (String device : devices)
+                                builder.addTestDevice(device);
+                        }
+                    }
+
+                    // Set Location
+                    if(AdManager.location != null && (Boolean)settings.get("enableLocation") == true){
+                        builder.setLocation(AdManager.location);
+                    }
+
+                    AdRequest adRequest = builder.build();
+
+                    _isShow=false;
+
+                    // Start loading the ad in the background.
+                    _interstitialAd.loadAd(adRequest);
                 }
-            }
-
-            // Set Location
-            if(AdManager.location != null && (Boolean)settings.get("enableLocation") == true){
-                builder.setLocation(AdManager.location);
-            }
-
-            AdRequest adRequest = builder.build();
-
-            _isShow=false;
-
-            // Start loading the ad in the background.
-            _interstitialAd.loadAd(adRequest);
+            });
         }
     }
 
     @Override
     public void destroy(){
+        log("destroy()");
         if(_interstitialAd!=null){
             _interstitialAd.setAdListener(null);
             _interstitialAd=null;

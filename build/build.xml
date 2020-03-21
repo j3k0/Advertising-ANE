@@ -141,8 +141,7 @@
     </target>
 
     <target name="unzipAAR">
-        <basename property="aarFileName" file="${aarFile}"
-            suffix=".aar"/>
+        <basename property="aarFileName" file="${aarFile}" suffix=".aar"/>
         <unzip src="${aarFile}" dest="../android/lib/dependencies/${aarFileName}" overwrite="true"/>
         <if>
             <available file="../android/lib/dependencies/${aarFileName}/classes.jar"/>

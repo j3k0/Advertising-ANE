@@ -9,6 +9,7 @@ import android.widget.RelativeLayout;
 import com.adobe.fre.FREContext;
 //import com.inmobi.commons.InMobi;
 //import com.inmobi.monetization.IMBanner;
+import digicrafts.extensions.AdvertisingContext;
 import digicrafts.extensions.adapter.AdmobBannerAdapter;
 import digicrafts.extensions.adapter.AdmobInterstitialAdapter;
 import digicrafts.extensions.adapter.BackFillBannerAdapter;
@@ -44,7 +45,7 @@ public class AdManager {
 // Private var
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    private FREContext _context;
+    private AdvertisingContext _context;
     private Activity _activity;
     private RelativeLayout _container;
     private Map<String, AdAdapterInterface> _adapterMap;
@@ -56,7 +57,7 @@ public class AdManager {
     /**
      *
      */
-    public AdManager(FREContext context) {
+    public AdManager(AdvertisingContext context) {
 
         _context = context;
         _activity = context.getActivity();
@@ -303,7 +304,7 @@ public class AdManager {
         if (size.equals(AdAdapterSize.INTERSTITIAL)){
             if(network.equals(AdAdapterNetworkType.ADMOB)) {
 
-                adapter = new AdmobInterstitialAdapter(_activity, adUnitId, settings);
+                adapter = new AdmobInterstitialAdapter(_context, _activity, adUnitId, settings);
 
             } /*else if(network.equals(AdAdapterNetworkType.AMAZON)) {
 
@@ -325,7 +326,7 @@ public class AdManager {
         } else {
             if(network.equals(AdAdapterNetworkType.ADMOB)) {
 
-                adapter = new AdmobBannerAdapter(_activity, size, adUnitId, settings);
+                adapter = new AdmobBannerAdapter(_context, _activity, size, adUnitId, settings);
 
             } /*else if(network.equals(AdAdapterNetworkType.AMAZON)) {
 

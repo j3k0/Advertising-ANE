@@ -9,6 +9,9 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import digicrafts.extensions.AdvertisingContext;
 import digicrafts.extensions.core.AbstractAdAdapter;
 import digicrafts.extensions.core.AdManager;
 import digicrafts.extensions.data.AdAdapterNetworkType;
@@ -23,11 +26,15 @@ import java.util.Map;
 public class AdmobBannerAdapter extends AbstractAdAdapter {
 
     private AdView _adView;
+    private AdvertisingContext _context;
+    private Activity _activity;
 
-    public AdmobBannerAdapter(Activity activity, String size, String adUnitId, Map<String, Object> settings){
+    public AdmobBannerAdapter(AdvertisingContext context, Activity activity, String size, String adUnitId, Map<String, Object> settings){
 
 
         if(activity!=null) {
+            this._context = context;
+            this._activity = activity;
 
             // init
             this.settings=settings;
@@ -132,37 +139,41 @@ public class AdmobBannerAdapter extends AbstractAdAdapter {
     @Override
     public void load(){
         if(_adView!=null){
-            // Create an ad request. Check logcat output for the hashed device ID to
-            // get test ads on a physical device.
-            AdRequest.Builder builder = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR);
 
-            Log.d("AdvertistingANE","AdMob test id:"+AdManager.deviceID + " test mode: "+AdManager.testMode);
+            Admob.initialize(_context, _activity, new OnInitializationCompleteListener() {
+                @Override
+                public void onInitializationComplete(InitializationStatus initializationStatus) {
 
-            if(AdManager.testMode){
-                builder.addTestDevice(AdManager.deviceID);
-            }
+                    // Create an ad request. Check logcat output for the hashed device ID to
+                    // get test ads on a physical device.
+                    AdRequest.Builder builder = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR);
 
-            // Add extra test devices
-            if(settings != null){
-                ArrayList<String> devices = (ArrayList<String>) settings.get("testDevices");
-                if(devices != null) {
-                    for (String device : devices)
-                        builder.addTestDevice(device);
+                    Log.d("AdvertistingANE","AdMob test id:"+AdManager.deviceID + " test mode: "+AdManager.testMode);
+
+                    if(AdManager.testMode){
+                        builder.addTestDevice(AdManager.deviceID);
+                    }
+
+                    // Add extra test devices
+                    if(settings != null){
+                        ArrayList<String> devices = (ArrayList<String>) settings.get("testDevices");
+                        if(devices != null) {
+                            for (String device : devices)
+                                builder.addTestDevice(device);
+                        }
+                    }
+
+                    // Set Location
+                    if(AdManager.location != null && (Boolean)settings.get("enableLocation") == true){
+                        builder.setLocation(AdManager.location);
+                    }
+
+                    AdRequest adRequest = builder.build();
+
+                    // Start loading the ad in the background.
+                    _adView.loadAd(adRequest);
                 }
-            }
-
-            // Set Location
-            if(AdManager.location != null && (Boolean)settings.get("enableLocation") == true){
-                builder.setLocation(AdManager.location);
-            }
-
-            AdRequest adRequest = builder.build();
-
-
-
-
-            // Start loading the ad in the background.
-            _adView.loadAd(adRequest);
+            });
         }
     }
 
