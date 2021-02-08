@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="Air Native Extension Build Scripts" default="all" basedir=".">
+<project name="Air Native Extension Build Scripts" default="all">
 
     <!-- Config -->
-    <property file="./build.config"/>
+    <property file="build.config"/>
+
+    <!-- Load ant-contrib -->
+    <taskdef resource="net/sf/antcontrib/antcontrib.properties">
+        <classpath>
+            <pathelement location="ant-contrib-0.6.jar"/>
+        </classpath>
+    </taskdef>
 
     <!-- All -->
-    <target name="all" depends="ios,android,swc,ios-dependencies,package" description="Full build of extension"/>
-    <!--<target name="all" depends="android,swc,package" description="Full build of extension"/>-->
+    <target name="all" depends="ios, android, swc, ios-dependencies, package" description="Full build of extension"/>
 
     <!-- iOS -->
     <target name="ios" description="Build iOS Library">
-        <mkdir dir="../temp/ios/build/"/>
+        <mkdir dir="../ios/temp/ios/build"/>
 
         <exec executable="xcodebuild" failonerror="true" dir="../ios/">
             <arg line="-project ${name}.xcodeproj"/>
@@ -22,86 +28,172 @@
             <arg line="-sdk ${ios.sdkversion}"/>
             <arg line="-alltargets"/>
             <arg line="-configuration Release"/>
-            <arg line="SYMROOT=../temp/ios/build/"/>
+            <arg line="SYMROOT=$(PWD)/../ios/temp/ios/build"/>
         </exec>
 
-        <copy file="../temp/ios/build/Release-iphoneos/lib${name}.a" todir="../temp/ios" overwrite="true"/>
-        <delete dir="../temp/ios/build/"/>
+        <copy file="../ios/temp/ios/build/Release-iphoneos/lib${name}.a" todir="temp/ios" overwrite="true"/>
+        <delete dir="../ios/temp/ios/build/"/>
     </target>
 
     <!-- Android -->
     <target name="android" description="Build Android Library">
+
+        <!-- paths -->
+        <property name="build.intermediates" value="../android/lib/build/intermediates"/>
+        <property name="build.release" value="${build.intermediates}/packaged-classes/release"/>
+        <property name="build.exploded-aar" value="${build.intermediates}/exploded-aar"/>
+
+        <!-- make the build directory -->
+        <mkdir dir="temp/android"/>
+        <mkdir dir="../android/lib/dependencies"/>
+
+        <exec executable="/usr/libexec/java_home" outputproperty="java.home">
+            <!-- <arg line="-v 1.8" /> -->
+        </exec>
+
+        <!-- clean the build -->
+        <exec executable="./gradlew" dir="../android">
+            <env key="JAVA_HOME" path="${java.home}"/>
+            <arg line="clean"/>
+        </exec>
+
+        <!-- compile the java code -->
+        <exec executable="./gradlew" dir="../android">
+            <env key="JAVA_HOME" path="${java.home}"/>
+            <env key="ANDROID_HOME" path="${android.sdk.home}"/>
+            <arg line=":lib:assembleRelease"/>
+        </exec>
+
+        <!-- get the jar -->
+        <copy file="${build.release}/classes.jar" tofile="temp/android/lib${name}.jar"/>
+        
+        <!-- Copy dependencies into temp folder -->
+        <exec executable="./gradlew" dir="../android">
+            <env key="JAVA_HOME" path="${java.home}"/>
+            <env key="ANDROID_HOME" path="${android.sdk.home}"/>
+            <arg line="copyDependencies"/>
+        </exec>
+
+        <!-- Extract aar files -->
+        <foreach target="unzipAAR" param="aarFile">
+            <fileset dir="../android/lib/dependencies">
+                <include name="*.aar"/>
+            </fileset>
+        </foreach>
+
+        <!-- Copy to build folder -->
+        <copy todir="temp/android">
+            <fileset dir="../android/lib/dependencies" excludes="FlashRuntimeExtensions.jar, runtimeClasses.jar">
+                <include name="*.jar"/>
+            </fileset>
+        </copy>
+
+        <!-- copy todir="temp/android/basement-res" overwrite="true" failonerror="true">
+            <fileset dir="../android/basement-res"/>
+        </copy -->
+        <!-- copy todir="temp/android/res" overwrite="true">
+            <fileset dir="${android.res}"/>
+        </copy -->
+        <delete dir="../android/lib/dependencies"/>
+        <delete dir="../android/lib/build"/>
+
+        <!-- old stuff ->
         <delete dir="../android/temp"/>
         <mkdir dir="../android/temp/classes"/>
-
         <javac target="1.7" source="1.7" srcdir="../android/src" destdir="../android/temp/classes" includeantruntime="false">
             <classpath>
-                <!--<pathelement path="${sdk.dir}/*"/>-->
+                <!- <pathelement path="${sdk.dir}/*"/> ->
                 <fileset dir="${sdk.dir}">
                     <include name="**/*.jar"/>
                 </fileset>
                 <pathelement location="${android.sdk}/android.jar"/>
-                <pathelement location="${flex.sdk}/lib/android/FlashRuntimeExtensions.jar"/>
-                <!-- pathelement location="${googleplay.sdk}/libs/google-play-services.jar"/ -->
+                <pathelement location="${air.sdk.home}/lib/android/FlashRuntimeExtensions.jar"/>
+                <!- pathelement location="${googleplay.sdk}/libs/google-play-services.jar"/ ->
             </classpath>
         </javac>
 
-        <mkdir dir="../temp/android/"/>
+        <mkdir dir="temp/android/"/>
 
-        <copy todir="../temp/android/advertising-res/">
+        <copy todir="temp/android/advertising-res/">
             <fileset dir="../android/res"/>
         </copy>
 
-        <copy todir="../temp/android/">
+        <copy todir="temp/android/">
             <fileset dir="${sdk.dir}"/>
         </copy>
 
-        <!-- google play -->
-        <copy todir="../temp/android/google-play-services-res/">
+        <!- google play ->
+        <copy todir="temp/android/google-play-services-res/">
             <fileset dir="../android/libs/google-play-services/res"/>
         </copy>
-        <copy todir="../temp/android/" file="../android/libs/google-play-services/google-play-services.jar" overwrite="true"/>
+        <copy todir="temp/android/" file="../android/libs/google-play-services/google-play-services.jar" overwrite="true"/>
 
-        <!-- copy todir="../temp/android/">
+        <!- copy todir="temp/android/">
             <fileset dir="${googleplay.sdk}/libs"/>
-        </copy -->
+        </copy ->
 
-        <jar basedir="../android/temp/classes" destfile="../temp/android/lib${name}.jar">
-            <!--<zipgroupfileset dir="${googleplay.sdk}/libs" includes="*.jar" excludes="*.properties" />-->
+        <jar basedir="../android/temp/classes" destfile="temp/android/lib${name}.jar">
+            <!- <zipgroupfileset dir="${googleplay.sdk}/libs" includes="*.jar" excludes="*.properties" />->
         </jar>
 
         <delete dir="../android/temp"/>
+        <- /old stuff -->
+    </target>
+
+    <target name="unzipAAR">
+        <basename property="aarFileName" file="${aarFile}" suffix=".aar"/>
+        <unzip src="${aarFile}" dest="../android/lib/dependencies/${aarFileName}" overwrite="true"/>
+        <if>
+            <available file="../android/lib/dependencies/${aarFileName}/classes.jar"/>
+            <then>
+                <move file="../android/lib/dependencies/${aarFileName}/classes.jar" tofile="../android/lib/dependencies/${aarFileName}.jar"/>
+            </then>
+        </if>
     </target>
 
     <!-- iOS Dependencies -->
     <target name="ios-dependencies" description="Copy iOS dependencies for packaging">
-        <!--copy todir="../temp/MillennialMedia.framework" overwrite="true">
+        <!--copy todir="temp/MillennialMedia.framework" overwrite="true">
             <fileset dir="../ios/AdNetworkSupport/Millennial/MillennialMedia.framework"/>
         </copy>
-        <copy todir="../temp/SpeechKit.framework" overwrite="true">
+        <copy todir="temp/SpeechKit.framework" overwrite="true">
             <fileset dir="../ios/AdNetworkSupport/Millennial/SpeechKit.framework"/>
         </copy>
-        <copy todir="../temp/AmazonAd.framework" overwrite="true">
+        <copy todir="temp/AmazonAd.framework" overwrite="true">
             <fileset dir="../ios/AdNetworkSupport/Amazon/AmazonAd.framework"/>
         </copy>
-        <copy todir="../temp/AmazonInsightsSDK.framework" overwrite="true">
+        <copy todir="temp/AmazonInsightsSDK.framework" overwrite="true">
             <fileset dir="../ios/AdNetworkSupport/Amazon/AmazonInsightsSDK.framework"/>
         </copy-->
-        <copy todir="../temp/ios/GoogleMobileAds.framework" overwrite="true">
-            <fileset dir="../ios/Advertising/GoogleMobileAdsSdkiOS/GoogleMobileAds.framework"/>
+        <copy todir="temp/ios/FirebaseAnalytics.framework" overwrite="true">
+            <fileset dir="../ios/Advertising/Firebase/Analytics/FirebaseAnalytics.framework"/>
         </copy>
-        <!--copy todir="../temp/ios/MillennialMedia.framework" overwrite="true">
+        <copy todir="temp/ios/FirebaseCore.framework" overwrite="true">
+            <fileset dir="../ios/Advertising/Firebase/Analytics/FirebaseCore.framework"/>
+        </copy>
+        <copy todir="temp/ios/FirebaseInstanceID.framework" overwrite="true">
+            <fileset dir="../ios/Advertising/Firebase/Analytics/FirebaseInstanceID.framework"/>
+        </copy>
+        <copy todir="temp/ios/GoogleInterchangeUtilities.framework" overwrite="true">
+            <fileset dir="../ios/Advertising/Firebase/Analytics/GoogleInterchangeUtilities.framework"/>
+        </copy>
+        <copy todir="temp/ios/GoogleSymbolUtilities.framework" overwrite="true">
+            <fileset dir="../ios/Advertising/Firebase/Analytics/GoogleSymbolUtilities.framework"/>
+        </copy>
+        <copy todir="temp/ios/GoogleMobileAds.framework" overwrite="true">
+            <fileset dir="../ios/Advertising/Firebase/AdMob/GoogleMobileAds.framework"/>
+        </copy>
+        <!--copy todir="temp/ios/MillennialMedia.framework" overwrite="true">
             <fileset dir="../ios/Advertising/MillennialMedia.framework"/>
         </copy-->
-        <copy todir="../temp/ios/MMAdSDK.framework" overwrite="true">
+        <!--copy todir="temp/ios/MMAdSDK.framework" overwrite="true">
             <fileset dir="../ios/Advertising/MMAdSDK.framework"/>
-        </copy>
-        <!--copy file="../ios/Advertising/libxml2.dylib" todir="../temp/ios/" overwrite="true"/-->
+        </copy-->
     </target>
 
     <!-- Actionscript -->
     <target name="swc" description="Build SWC library">
-        <mkdir dir="../temp/swc/content/"/>
+        <mkdir dir="temp/swc/content/"/>
 
         <fileset dir="../actionscript/src" casesensitive="yes" id="classfiles">
             <include name="**/*.as"/>
@@ -111,21 +203,21 @@
             <regexpmapper from=".*src.(.*)\.as" to="\1"/>
         </pathconvert>
 
-        <exec executable="${flex.sdk}/bin/compc${bin.ext}" failonerror="true">
-            <env key="AIR_SDK_HOME" value="${flex.sdk}"/>
+        <exec executable="${air.sdk.home}/bin/compc${bin.ext}" failonerror="true">
+            <env key="AIR_SDK_HOME" value="${air.sdk.home}"/>
             <arg line='-source-path ../actionscript/src'/>
-            <arg line='-output ../temp/swc/${name}.swc'/>
+            <arg line='-output temp/swc/${name}.swc'/>
             <arg line='-swf-version=14'/>
-            <arg line='-external-library-path+="${flex.sdk}/frameworks/libs/air/airglobal.swc"'/>
-            <arg line='-library-path="${flex.sdk}/frameworks/libs/air/aircore.swc"'/>
+            <arg line='-external-library-path+="${air.sdk.home}/frameworks/libs/air/airglobal.swc"'/>
+            <arg line='-library-path="${air.sdk.home}/frameworks/libs/air/aircore.swc"'/>
             <arg line='-include-classes ${classlist}'/>
         </exec>
 
-        <unzip src="../temp/swc/${name}.swc" dest="../temp/swc/content" overwrite="true"/>
-        <copy file="../temp/swc/content/library.swf" todir="../temp/ios" overwrite="true"/>
-        <copy file="../temp/swc/content/library.swf" todir="../temp/android" overwrite="true"/>
-        <copy file="../temp/swc/content/library.swf" todir="../temp/default" overwrite="true"/>
-        <delete dir="../temp/swc/content/"/>
+        <unzip src="temp/swc/${name}.swc" dest="temp/swc/content" overwrite="true"/>
+        <copy file="temp/swc/content/library.swf" todir="temp/ios" overwrite="true"/>
+        <copy file="temp/swc/content/library.swf" todir="temp/android" overwrite="true"/>
+        <copy file="temp/swc/content/library.swf" todir="temp/default" overwrite="true"/>
+        <delete dir="temp/swc/content/"/>
     </target>
 
     <!-- Doc -->
@@ -139,38 +231,40 @@
             <regexpmapper from=".*src.(.*)\.as" to="\1"/>
         </pathconvert>
 
-        <exec executable="${flex.sdk}/bin/asdoc${bin.ext}" failonerror="true">
-            <env key="AIR_SDK_HOME" value="${flex.sdk}"/>
-            <env key="FLEX_HOME" value="${flex.sdk}"/>
-            <env key="SCRIPT_HOME" value="${flex.sdk}/bin"/>
-            <env key="FALCON_HOME" value="${flex.sdk}"/>
+        <exec executable="${air.sdk.home}/bin/asdoc${bin.ext}" failonerror="true">
+            <env key="AIR_SDK_HOME" value="${air.sdk.home}"/>
+            <env key="FLEX_HOME" value="${air.sdk.home}"/>
+            <env key="SCRIPT_HOME" value="${air.sdk.home}/bin"/>
+            <env key="FALCON_HOME" value="${air.sdk.home}"/>
             <arg line='-doc-sources ../actionscript/src'/>
             <arg line='-output ../doc'/>
-            <arg line='-external-library-path+="${flex.sdk}/frameworks/libs/air/airglobal.swc"'/>
-            <arg line='-library-path="${flex.sdk}/frameworks/libs/air/aircore.swc"'/>
+            <arg line='-external-library-path+="${air.sdk.home}/frameworks/libs/air/airglobal.swc"'/>
+            <arg line='-library-path="${air.sdk.home}/frameworks/libs/air/aircore.swc"'/>
         </exec>
 
-        <delete dir="../temp/swc/content/"/>
+        <delete dir="temp/swc/content/"/>
     </target>
 
     <!-- Package -->
     <target name="package" description="Create the extension package">
-        <exec executable="${flex.sdk}/bin/adt${bin.ext}" failonerror="true" dir="../temp">
+
+        <exec executable="${air.sdk.home}/bin/adt${bin.ext}" failonerror="true" dir="temp">
             <arg value="-package"/>
             <arg value="-target"/>
             <arg value="ane"/>
             <arg value="${name}.ane"/>
-            <arg value="../build/extension.xml"/>
+            <arg value="../extension.xml"/>
             <arg line="-swc swc/${name}.swc"/>
-            <arg line="-platform iPhone-ARM -platformoptions ../build/platform-ios.xml -C ios/ ."/>
-            <arg line="-platform Android-ARM -platformoptions ../build/platform-android.xml -C android/ ."/>
-            <arg line="-platform Android-x86 -platformoptions ../build/platform-android.xml -C android/ ."/>
+            <arg line="-platform iPhone-ARM -platformoptions ../platform-ios.xml -C ios/ ."/>
+            <arg line="-platform Android-ARM -platformoptions ../platform-android.xml -C android/ ."/>
+            <arg line="-platform Android-ARM64 -platformoptions ../platform-android.xml -C android/ ."/>
+            <arg line="-platform Android-x86 -platformoptions ../platform-android.xml -C android/ ."/>
             <arg line="-platform default -C default/ ."/>
         </exec>
 
-        <move file="../temp/swc/${name}.swc" todir="../bin"/>
-        <move file="../temp/${name}.ane" todir="../bin"/>
-        <delete dir="../temp"/>
+        <move file="temp/${name}.ane" todir="../bin"/>
+        <move file="temp/swc/${name}.swc" todir="../bin"/>
+        <delete dir="temp"/>
     </target>
 
 </project>

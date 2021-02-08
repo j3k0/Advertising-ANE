@@ -1,0 +1,31 @@
+
+apply plugin: 'com.android.library'
+
+dependencies {
+    compileOnly fileTree(dir: 'libs', include: ['*.jar'])
+    compileOnly 'com.google.android.gms:play-services-ads:19.0.0'
+}
+
+android {
+
+    useLibrary  'org.apache.http.legacy'
+
+    compileSdkVersion 28
+    buildToolsVersion '28.0.3'
+
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 28
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+}
+
+task copyDependencies(type: Copy) {
+    from configurations.compile
+    into 'dependencies'
+}
+
